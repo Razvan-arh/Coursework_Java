@@ -29,6 +29,17 @@ public class GetPatientByName
         {
             Model model = ModelFactory.getModel();
 
+            if (firstNameString == null || firstNameString.trim().isEmpty() 
+                || lastNameString == null || lastNameString.trim().isEmpty()) 
+            {
+                // if either input is empty send error message
+                request.setAttribute("errorMessage", "Please enter both names.");
+            } 
+            else 
+            {
+                List<String> searchResult = model.getPatientByName(firstNameString, lastNameString);
+                request.setAttribute("result", searchResult);
+            }
 
         } catch (IOException e) 
     {
