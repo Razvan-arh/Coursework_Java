@@ -41,6 +41,10 @@ public class GetPatientByName
                 request.setAttribute("resultId", searchResult);
             }
 
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/patientNameResult.jsp");
+            dispatch.forward(request, response);
+
         } catch (IOException e) 
     {
       request.setAttribute("errorMessage", "Error loading data: " + e.getMessage());

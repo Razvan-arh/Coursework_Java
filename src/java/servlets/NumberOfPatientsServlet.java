@@ -19,15 +19,29 @@ public class NumberOfPatientsServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        doPost(request, response);
+        try
+        {
+            Model model = ModelFactory.getModel();
+
+            int numberOfPatients = model.numberOfPatients;
+
+            request.setAttribute("numberOfPatients", numberOfPatients);
+            
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/numberOfPatients.jsp");
+            dispatch.forward(request, response);
+
+        }catch (IOException e)
+        {
+            request.setAttribute("errorMessage", "Error loading data: " + e.getMessage());
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
-        String searchString = request.getParameter("searchstring");
-
-        
-
+        doGet(request, response);
     }
 }
