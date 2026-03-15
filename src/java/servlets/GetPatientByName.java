@@ -37,8 +37,8 @@ public class GetPatientByName
             } 
             else 
             {
-                List<String> searchResult = model.getPatientByName(firstNameString, lastNameString);
-                request.setAttribute("result", searchResult);
+                List<String> searchResult = model.getPatientByName(firstNameString, lastNameString); //TODO change this part aproapriately
+                request.setAttribute("resultId", searchResult);
             }
 
         } catch (IOException e) 
