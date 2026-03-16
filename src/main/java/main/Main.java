@@ -18,7 +18,7 @@ public class Main
 {
     private static final int DEFAULT_PORT = 8080;
 
-    private static final String DEFAULT_WEBAPP_DIR = "src/webapp/";
+    private static final String DEFAULT_WEBAPP_DIR = "src/main/webapp/";
 
     private static final String DEFAULT_TARGET_CLASSES = "target/classes";
 
