@@ -1,4 +1,4 @@
-package Coursework.src.java.model;
+package model;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class DataLoader 
 {
     
-    public DattaFrame getPatients()
+    public DataFrame getPatients()
     {   
         return readFile("data/patients100.csv"); //TODO Add file name
     }

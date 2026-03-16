@@ -1,4 +1,7 @@
-package Coursework.src.java.servlets;
+package servlets;
+
+import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -7,11 +10,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Coursework.src.java.model.ModelFactory;
+import model.ModelFactory;
+import model.Model;
 
 
 @WebServlet("/getpatientbyname")
-public class GetPatientByName 
+public class GetPatientByName extends HttpServlet
 {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {

@@ -1,4 +1,4 @@
-package Coursework.src.java.main;
+package main;
 
 import java.io.IOException;
 import java.nio.file.Files;

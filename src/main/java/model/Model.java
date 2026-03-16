@@ -1,4 +1,7 @@
-package Coursework.src.java.model;
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model 
 {
@@ -13,25 +16,26 @@ public class Model
     public Model()
     {
         this.patients = new DataFrame();
-        this.patients = DataLoader.getPatients();
+        DataLoader dataLoader = new DataLoader();
+        this.patients = dataLoader.getPatients();
     }
 
-    private boolean validatePatient()
+    //private boolean validatePatient()
     {
 
     }
 
-    public List<String> searchByKeyword(String keyword)
+    //public List<String> searchByKeyword(String keyword)
     {
         
     }
 
-    public void addPatient()
+    //public void addPatient()
     {
 
     }
 
-    public void patientDied()
+    //public void patientDied()
     {
 
     }
@@ -40,18 +44,18 @@ public class Model
     // if no First or Last columns exists returns null
     public List<String> getPatientByName(String patientFirstName, String patientLastName)
     {
-        List<String> patientsID = new List();
+        List<String> patientsID = new ArrayList<>();
 
-        if(patients.getColumnNames.indexOf(firstNameColumn) == -1 || patients.getColumnNames.indexOf(lastNameColumn) == -1)
+        if(patients.getColumnNames().indexOf(firstNameColumn) == -1 || patients.getColumnNames().indexOf(lastNameColumn) == -1)
         {
             return null;
         }
         
         for (int i = 1; i < patients.getRowCount(firstNameColumn); i++)
         {
-            if (patients.getValue(firstNameColumn, i).compareToIgnoreCase(patientFirstName))
+            if (patients.getValue(firstNameColumn, i).compareToIgnoreCase(patientFirstName) == 0)
             {
-                if (patients.getValue(lastNameColumn, i).compareToIgnoreCase(patientLastName))
+                if (patients.getValue(lastNameColumn, i).compareToIgnoreCase(patientLastName) == 0)
                     patientsID.add(patients.getValue(IDColumn, i));
             }
         }
@@ -61,7 +65,7 @@ public class Model
 
     public int numberOfPatients()
     {
-        return patients.getRowCount(patients.getColumnNames.get(0)); // the 0 index is going to be ID which all patients must have
+        return patients.getRowCount(patients.getColumnNames().get(0)); // the 0 index is going to be ID which all patients must have
     }
 
 

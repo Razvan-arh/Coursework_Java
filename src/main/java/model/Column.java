@@ -1,4 +1,4 @@
-package Coursework.src.java.model;
+package model;
 
 import java.util.ArrayList;
 

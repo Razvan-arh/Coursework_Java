@@ -1,4 +1,4 @@
-package Coursework.src.java.servlets;
+package servlets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -7,11 +7,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Coursework.src.java.model.ModelFactory;
+import model.ModelFactory;
+import model.Model;
 
 import java.io.IOException;
 
-import Coursework.src.java.model.Model;
 
 @WebServlet("/numberOfPatients")
 public class NumberOfPatientsServlet extends HttpServlet
@@ -23,7 +23,7 @@ public class NumberOfPatientsServlet extends HttpServlet
         {
             Model model = ModelFactory.getModel();
 
-            int numberOfPatients = model.numberOfPatients;
+            int numberOfPatients = model.numberOfPatients();
 
             request.setAttribute("numberOfPatients", numberOfPatients);
             
