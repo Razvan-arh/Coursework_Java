@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Model 
@@ -85,5 +86,16 @@ public class Model
         return patients.getRowCount(patients.getColumnNames().get(0)); // the 0 index is going to be ID which all patients must have
     }
 
+    // returns a hashmap with a patient's info maped to the type of info
+    public HashMap<String,String> patientInfo(int patientId)
+    {
+        HashMap <String, String> patientInfo = new HashMap<>();
 
+        for (String column : patients.getColumnNames())
+        {
+            patientInfo.put(column, patients.getValue(column, patientId));
+        }
+
+        return patientInfo;
+    }
 }
