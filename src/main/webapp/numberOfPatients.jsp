@@ -15,13 +15,21 @@
     <p style = "color:red"><%= errorMessage %></p>
   <%
     }
+    String numberOfPatients = (String) request.getAttribute("numberOfPatients");
+    if (numberOfPatients != null)
+    {
+  %>
+  <ul>
+    <li><%= numberOfPatients %></li>
+  </ul>
+  <%}
     else
     {
-    int numberOfPatients = 0;
-    numberOfPatients = request.getAttribute("numberOfPatients");
+      %>
+        <p>Something went wrong</p>
+      <%
+    }
   %>
-  <p><%= numberOfPatients %></p>
-  <%}%>
   </div>
 </body>
 </html>

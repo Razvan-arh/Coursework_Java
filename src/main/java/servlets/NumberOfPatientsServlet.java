@@ -23,7 +23,7 @@ public class NumberOfPatientsServlet extends HttpServlet
         {
             Model model = ModelFactory.getModel();
 
-            int numberOfPatients = model.numberOfPatients();
+            String numberOfPatients = String.valueOf(model.numberOfPatients());
 
             request.setAttribute("numberOfPatients", numberOfPatients);
             
