@@ -12,12 +12,16 @@ public class Model
     String firstNameColumn = "FIRST";
     String lastNameColumn = "LAST";
     String IDColumn = "ID";
+    int numberOfColumns;
 
     public Model()
     {
+        // initiate the data frame from the data
         this.patients = new DataFrame();
         DataLoader dataLoader = new DataLoader();
         this.patients = dataLoader.getPatients();
+
+        this.numberOfColumns = patients.getColumnNames().size(); // get the number of columns
     }
 
     //private boolean validatePatient()
@@ -25,9 +29,22 @@ public class Model
 
     }
 
-    //public List<String> searchByKeyword(String keyword)
+    public List<String> searchByKeyword(String keyword)
     {
-        
+        List<String> patientsIdList = new ArrayList<>();
+
+        for (int i = 1; i < patients.getRowCount(IDColumn); i++)
+        {   
+            for (String columnName : patients.getColumnNames())
+            {
+                if (patients.getValue(columnName, i).indexOf(keyword) != -1)
+                {
+                    patientsIdList.add(patients.getValue(IDColumn, i));
+                    break;
+                }
+            }
+        }
+        return patientsIdList;
     }
 
     //public void addPatient()

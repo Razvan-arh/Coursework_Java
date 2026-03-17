@@ -26,7 +26,9 @@
         for (String patientId : patientsId)
         {
       %>
-      <li><%=patientId%></li>
+      <li>
+        <a href="patientPage.jsp?patientId= <%= java.net.URLEncoder.encode(patientId, "UTF-8") %>"> <%=patientId%> </a>
+      </li>
      <% }
     } else if (errorMessage == null)
     {%>
