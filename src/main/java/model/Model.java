@@ -87,13 +87,20 @@ public class Model
     }
 
     // returns a hashmap with a patient's info maped to the type of info
-    public HashMap<String,String> patientInfo(int patientId)
+    public HashMap<String,String> patientInfo(String patientId)
     {
         HashMap <String, String> patientInfo = new HashMap<>();
 
+        int row = 0;
+
+        while (patients.getValue(IDColumn, row).compareTo(patientId) != 0 && row < patients.getRowCount(IDColumn))
+        {   
+            row++;
+        }
+
         for (String column : patients.getColumnNames())
         {
-            patientInfo.put(column, patients.getValue(column, patientId));
+            patientInfo.put(column, patients.getValue(column, row));
         }
 
         return patientInfo;

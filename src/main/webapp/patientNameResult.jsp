@@ -27,7 +27,7 @@
         {
       %>
       <li>
-        <a href="patientPage.jsp?patientId= <%= java.net.URLEncoder.encode(patientId, "UTF-8") %>"> <%=patientId%> </a>
+        <a href="viewpageservlet?PatientId=<%= java.net.URLEncoder.encode(patientId, "UTF-8") %>"> <%=patientId%> </a>
       </li>
      <% }
     } else if (errorMessage == null)

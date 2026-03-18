@@ -16,7 +16,7 @@ import model.Model;
 @WebServlet("/searchbykeyword")
 public class SearchByKeywordServlet extends HttpServlet
 {
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         doPost(request, response);
     }
@@ -24,7 +24,6 @@ public class SearchByKeywordServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String keyword = request.getParameter("keyword");        
-        
         try 
         {
             Model model = ModelFactory.getModel();
