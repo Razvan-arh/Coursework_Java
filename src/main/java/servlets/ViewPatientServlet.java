@@ -24,7 +24,6 @@ public class ViewPatientServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String patientId = request.getParameter("PatientId");        
-        System.out.print("muie");
         try 
         {
             Model model = ModelFactory.getModel();
@@ -38,7 +37,6 @@ public class ViewPatientServlet extends HttpServlet
             {
                 HashMap<String, String> patientHashMap = model.patientInfo(patientId); 
                 request.setAttribute("patientInfo", patientHashMap);
-                System.out.println("Hashmap = "+ patientHashMap);
             }
 
             ServletContext context = getServletContext();

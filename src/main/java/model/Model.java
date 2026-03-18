@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +55,7 @@ public class Model
 
     }
 
-    //public void patientDied()
+    //public void changePatientData()
     {
 
     }
@@ -105,4 +107,34 @@ public class Model
 
         return patientInfo;
     }
+
+    public String oldestPatient()
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate oldestPatientBirthday = null;
+
+        if (patients.getColumnNames().contains("BIRTHDATE") && patients.getColumnNames().contains("DEATHDATE"))
+        {
+            for (int i = 1; i < patients.getRowCount(IDColumn); i++)
+            {
+                // make sure the patient is alive
+                if (patients.getValue("DEATHDATE", i) == null)
+                {
+                    LocalDate patientBirthday = LocalDate.parse(patients.getValue("BIRTHDATE", i), formatter);
+                    if(oldestPatientBirthday == null)
+                        oldestPatientBirthday = patientBirthday;
+                    else if(oldestPatientBirthday.isAfter(patientBirthday))
+                        oldestPatientBirthday = patientBirthday;
+                }
+            }
+            return oldestPatientBirthday.toString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    //public int numberOfPetientsCity(String city)
+
 }
