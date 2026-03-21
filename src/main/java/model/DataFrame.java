@@ -78,4 +78,14 @@ public class DataFrame
             columnArray.get(index).addRowValue(value);
         }
     }
+
+    public void deleteValue(String columnName, int row) // deletes a row from a column
+    {
+        int index = getIndex(columnName);
+
+        if (index >= 0)
+        {
+            columnArray.get(index).deleteRowValue(row);
+        }
+    }
 }

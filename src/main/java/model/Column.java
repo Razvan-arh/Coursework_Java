@@ -38,4 +38,8 @@ public class Column
         this.rows.add(value);
     }
 
+    public void deleteRowValue(int row)
+    {
+        this.rows.remove(row);
+    }
 }
