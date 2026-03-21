@@ -11,6 +11,9 @@
   <div class="main">
     <body>
       <%
+      String patientId = request.getParameter("PatientId");
+      %>
+      <%
         String errorMessage = (String) request.getAttribute("errorMessage");
 
         if(errorMessage != null)
@@ -40,6 +43,11 @@
         }
         }
       %>
+    <br>
+    <form action="modifyPatient.html" method="get">
+        <input type="hidden" name="id" value="<%= patientId %>">
+        <button type="submit">Modify Patient</button>
+    </form>
     </body>
   </div>
   </html>

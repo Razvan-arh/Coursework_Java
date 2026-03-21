@@ -1,0 +1,62 @@
+<html>
+<head>
+  <title>Patient Data App</title>
+</head>
+<body>
+<div class="main">
+  <h1>Add Patient</h1>
+  <form method="GET" action="/modifypatient" onsubmit="setFieldName()">
+    <input type="hidden" id="patientIdInput" name="PatientId"/>
+    <input type="hidden" id="fieldInput" name="field"/>
+    <input type="hidden" id="valueHiddenInput" name="value"/>
+
+    <select id="fieldSelect">
+      <option value="BIRTHDATE">Birth Date</option>
+      <option value="DEATHDATE">Death Date</option>
+      <option value="SSN">SSN</option>
+      <option value="DRIVERS">Driver's License</option>
+      <option value="PASSPORT">Passport</option>
+      <option value="PREFIX">Prefix</option>
+      <option value="FIRST">First Name</option>
+      <option value="LAST">Last Name</option>
+      <option value="SUFFIX">Suffix</option>
+      <option value="MAIDEN">Maiden Name</option>
+      <option value="MARITAL">Marital Status</option>
+      <option value="RACE">Race</option>
+      <option value="ETHNICITY">Ethnicity</option>
+      <option value="GENDER">Gender</option>
+      <option value="BIRTHPLACE">Birthplace</option>
+      <option value="ADDRESS">Address</option>
+      <option value="CITY">City</option>
+      <option value="STATE">State</option>
+      <option value="ZIP">ZIP Code</option>
+    </select>
+
+    <input type="text" id="valueInput" placeholder="Enter value here"/>
+
+    <input type="submit" value="Modify Patient Data"/>
+  </form>
+</div>
+
+<script>
+function getPatientIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('id'); 
+}
+
+function setFieldName() {
+  // set PatientId hidden input
+  document.getElementById('patientIdInput').value = getPatientIdFromURL();
+
+  // set selected field
+  var selectedField = document.getElementById("fieldSelect").value;
+  document.getElementById('fieldInput').value = selectedField;
+
+  // set value
+  var userValue = document.getElementById("valueInput").value;
+  document.getElementById('valueHiddenInput').value = userValue;
+}
+</script>
+
+</body>
+</html>

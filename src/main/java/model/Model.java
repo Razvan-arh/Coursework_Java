@@ -66,10 +66,10 @@ public class Model
     }
 
     // adds new patient and creates new csv
-    public void addPatient(HashMap<String, String> patientInfo)
+    public boolean addPatient(HashMap<String, String> patientInfo)
     {
         if (!validatePatient(patientInfo))
-            return;
+            return false;
 
         CSVWriter csvWriter = new CSVWriter();
         String randomId = UUID.randomUUID().toString(); // id appears to be of uuid format
@@ -93,14 +93,26 @@ public class Model
         }
     
         csvWriter.saveCSV(patients);
+        return true;
     }
 
     // changes a given value to a new one
     //creates new csv
-    public void changePatientData(String columnName, int row, String value)
+    public void changePatientData(String columnName, String ID, String value)
     {   
+        // finds the row of the patient
+        int row = 0;
+        for (int i =1; i < patients.getRowCount(IDColumn); i++)
+        {
+            if (patients.getValue(IDColumn, i).compareTo(ID) == 0)
+            {
+                row = i;
+                break;
+            }
+        }
+
         // verifies if row and column exists
-        if (!patients.getColumnNames().contains(columnName) || row > patients.getRowCount(columnName))
+        if (!patients.getColumnNames().contains(columnName) || row > patients.getRowCount(columnName) || row == 0)
             return;
 
         CSVWriter csvWriter = new CSVWriter();
