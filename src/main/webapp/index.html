@@ -21,7 +21,17 @@
     <li>
       <a href = "addPatient.html">Add a new patient</a>
     </li>
+    <li>
+      <a href="writeJson">Export all patients as JSON</a>
+    </li>  
   </ul>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const msg = params.get("message");
+      if(msg){
+        alert(msg);
+      }
+    </script>
 </nav>
 </body>
 </html>

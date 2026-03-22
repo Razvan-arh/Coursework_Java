@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class JSONWriter 
 {
-    public void writeJSON(DataFrame patients)
+    public static boolean writeJSON(DataFrame patients)
     {
         final String outputJson = "patients.json";
 
@@ -38,10 +38,11 @@ public class JSONWriter
             // write the json file
             mapper.writerWithDefaultPrettyPrinter()
                   .writeValue(new File(outputJson), jsonList);
-            
+            return true;
         }catch(IOException e)
         {
-            e.printStackTrace(); //TODO add error handling
+            e.printStackTrace(); 
+            return false;
         }
     
     }    

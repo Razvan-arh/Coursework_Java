@@ -48,6 +48,15 @@
         <input type="hidden" name="id" value="<%= patientId %>">
         <button type="submit">Modify Patient</button>
     </form>
+    <form action="/deletepatient" method="get">      
+      <input type="hidden" name="PatientId" value="<%= patientId %>">
+      <button type="submit">Delete Patient</button>
+    </form>
+
+    <p style="position: fixed; bottom: 10px; width: 100%; text-align: center;">
+      <a href = "index.html">Go back to the main page</a>
+    </p>
+
     </body>
   </div>
   </html>

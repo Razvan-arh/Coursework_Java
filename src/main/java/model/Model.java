@@ -1,11 +1,13 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class Model 
@@ -73,7 +75,7 @@ public class Model
 
         CSVWriter csvWriter = new CSVWriter();
         String randomId = UUID.randomUUID().toString(); // id appears to be of uuid format
-        //TODO verify agains previous UUID
+        //TODO verify against previous UUID
         patients.addValue(IDColumn, randomId); // add random ID generator
 
         for (String field : patients.getColumnNames())
@@ -97,7 +99,7 @@ public class Model
     }
 
     // changes a given value to a new one
-    //creates new csv
+    // creates new csv
     public void changePatientData(String columnName, String ID, String value)
     {   
         // finds the row of the patient
@@ -197,8 +199,9 @@ public class Model
 
     public String oldestPatient()
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate oldestPatientBirthday = null;
+        int oldestPatientRow = 0;
 
         if (patients.getColumnNames().contains("BIRTHDATE") && patients.getColumnNames().contains("DEATHDATE"))
         {
@@ -207,14 +210,28 @@ public class Model
                 // make sure the patient is alive
                 if (patients.getValue("DEATHDATE", i) == null)
                 {
+                    try{
                     LocalDate patientBirthday = LocalDate.parse(patients.getValue("BIRTHDATE", i), formatter);
                     if(oldestPatientBirthday == null)
+                    {
                         oldestPatientBirthday = patientBirthday;
+                        oldestPatientRow = i;
+                    }
                     else if(oldestPatientBirthday.isAfter(patientBirthday))
+                    {
                         oldestPatientBirthday = patientBirthday;
+                        oldestPatientRow = i;                        
+                    }
+                    } catch(Exception e)
+                    {
+                        continue; // skips invalid birthdays
+                    }
                 }
             }
-            return oldestPatientBirthday.toString();
+            // constructs the oldest patient full name
+            String patientFullName = patients.getValue(firstNameColumn, oldestPatientRow) + 
+            " " + patients.getValue(lastNameColumn, oldestPatientRow);
+            return patientFullName;
         }
         else
         {
@@ -222,6 +239,64 @@ public class Model
         }
     }
 
-    //public int numberOfPetientsCity(String city)
+    public int numberOfPetientsCity(String city)
+    {
+        String cityColumn = "CITY";
 
+        if (!patients.getColumnNames().contains(cityColumn))
+            return 0;
+
+        int totalPatients = 0;
+
+        for (int i = 1; i < patients.getRowCount(cityColumn); i++)
+        {
+            if (patients.getValue(cityColumn, i).compareTo(cityColumn) == 0)
+                totalPatients++;
+        }
+        return totalPatients;
+    }
+    
+    public Map<String, Integer> getAgeDistribution()
+    {
+        Map <String, Integer> distribution = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now(); // today's date
+
+        String birthColumn = "BIRTHDATE";
+        String deathColumn = "DEATHDATE";
+
+        // return null if there is no field for birthdates and deathdates
+        if (!patients.getColumnNames().contains(birthColumn) ||
+            !patients.getColumnNames().contains(deathColumn))
+            return null;
+
+        for (int i = 1; i < patients.getRowCount(birthColumn); i++)
+        {
+            if (patients.getValue(deathColumn, i) != null)
+                continue; // skip if patient isn't alive
+            try
+            {
+                LocalDate birthDate = LocalDate.parse(patients.getValue(birthColumn, i), formatter);
+                int age = Period.between(birthDate, today).getYears();
+
+                // determine 10-year age group
+                int lower = (age / 10) * 10;
+                int upper = lower + 9;
+                String group = lower + "-" + upper;
+
+                distribution.put(group, distribution.getOrDefault(group, 0) + 1);
+
+            }catch(Exception e)
+            {
+                continue; // skip malformed birthdates
+            }
+        }            
+        return distribution;
+    }
+
+    
+    public boolean writeJSON()
+    {
+        return JSONWriter.writeJSON(patients);
+    }
 }

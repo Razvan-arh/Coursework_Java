@@ -23,5 +23,10 @@
       <%
     }
     %>
+
+  <p style="position: fixed; bottom: 10px; width: 100%; text-align: center;">
+    <a href = "index.html">Go back to the main page</a>
+  </p>
+  
 </div>
 </body>
