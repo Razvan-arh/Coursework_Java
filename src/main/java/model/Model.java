@@ -53,7 +53,7 @@ public class Model
     {
         List<String> patientsIdList = new ArrayList<>();
 
-        for (int i = 1; i < patients.getRowCount(IDColumn); i++)
+        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
         {   
             for (String columnName : patients.getColumnNames())
             {
@@ -104,7 +104,7 @@ public class Model
     {   
         // finds the row of the patient
         int row = 0;
-        for (int i =1; i < patients.getRowCount(IDColumn); i++)
+        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
         {
             if (patients.getValue(IDColumn, i).compareTo(ID) == 0)
             {
@@ -129,7 +129,7 @@ public class Model
     public void deletePatientData(String patientID)
     {
         // verifies if patient exists
-        for (int i = 1; i < patients.getRowCount(IDColumn); i++)
+        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
         {
             if (patients.getValue(IDColumn, i).compareTo(patientID) == 0)
             {
@@ -160,7 +160,7 @@ public class Model
             return null;
         }
         
-        for (int i = 1; i < patients.getRowCount(firstNameColumn); i++)
+        for (int i = 0; i < patients.getRowCount(firstNameColumn); i++)
         {
             if (patients.getValue(firstNameColumn, i).compareToIgnoreCase(patientFirstName) == 0)
             {
@@ -205,20 +205,21 @@ public class Model
 
         if (patients.getColumnNames().contains("BIRTHDATE") && patients.getColumnNames().contains("DEATHDATE"))
         {
-            for (int i = 1; i < patients.getRowCount(IDColumn); i++)
+            for (int i = 0; i < patients.getRowCount(IDColumn); i++)
             {
                 // make sure the patient is alive
-                if (patients.getValue("DEATHDATE", i) == null)
+                if (patients.getValue("DEATHDATE", i).isEmpty())
                 {
                     try{
                     LocalDate patientBirthday = LocalDate.parse(patients.getValue("BIRTHDATE", i), formatter);
                     if(oldestPatientBirthday == null)
                     {
                         oldestPatientBirthday = patientBirthday;
-                        oldestPatientRow = i;
+                        oldestPatientRow = i; 
                     }
                     else if(oldestPatientBirthday.isAfter(patientBirthday))
                     {
+                       
                         oldestPatientBirthday = patientBirthday;
                         oldestPatientRow = i;                        
                     }
@@ -248,14 +249,43 @@ public class Model
 
         int totalPatients = 0;
 
-        for (int i = 1; i < patients.getRowCount(cityColumn); i++)
+        for (int i = 0; i < patients.getRowCount(cityColumn); i++)
         {
-            if (patients.getValue(cityColumn, i).compareTo(cityColumn) == 0)
+            if (patients.getValue(cityColumn, i).compareTo(city) == 0)
                 totalPatients++;
         }
         return totalPatients;
     }
     
+    public HashMap<String, Integer> patientsGender()
+    {
+        HashMap<String, Integer> patientsGender = new HashMap<>();
+
+        if (!patients.getColumnNames().contains("GENDER"))
+            return null;
+
+        // initiate the 3 options at 0
+        Integer male = 0;
+        Integer female = 0;
+        Integer other = 0;
+
+        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
+        {
+            if(patients.getValue("GENDER", i).compareTo("M") == 0)
+                male++;
+            else if(patients.getValue("GENDER", i).compareTo("F") == 0)
+                female++;
+            else
+                other++;
+        }
+
+        patientsGender.put("M", male);
+        patientsGender.put("F", female);
+        patientsGender.put("other", other);
+
+        return patientsGender;
+    }
+
     public Map<String, Integer> getAgeDistribution()
     {
         Map <String, Integer> distribution = new HashMap<>();
@@ -270,9 +300,9 @@ public class Model
             !patients.getColumnNames().contains(deathColumn))
             return null;
 
-        for (int i = 1; i < patients.getRowCount(birthColumn); i++)
+        for (int i = 0; i < patients.getRowCount(birthColumn); i++)
         {
-            if (patients.getValue(deathColumn, i) != null)
+            if (!patients.getValue(deathColumn, i).isEmpty())
                 continue; // skip if patient isn't alive
             try
             {
@@ -291,6 +321,46 @@ public class Model
                 continue; // skip malformed birthdates
             }
         }            
+        return distribution;
+    }
+
+    public Map<String, Integer> getCityDistribution()
+    {
+        Map<String, Integer> distribution = new HashMap<>();
+
+        String cityColumn = "CITY";
+        String deathColumn = "DEATHDATE";
+
+        // return null if CITY column doesn't exist
+        if (!patients.getColumnNames().contains(cityColumn))
+            return null;
+
+        for (int i = 0; i < patients.getRowCount(cityColumn); i++)
+        {
+            if (patients.getColumnNames().contains(deathColumn) &&
+                !patients.getValue(deathColumn, i).isEmpty())
+                continue;
+
+            try
+            {
+                String city = patients.getValue(cityColumn, i);
+
+                // skip null or empty values
+                if (city == null || city.isBlank())
+                    continue;
+
+                // normalize 
+                city = city.trim();
+
+                distribution.put(city, distribution.getOrDefault(city, 0) + 1);
+
+            }
+            catch (Exception e)
+            {
+                continue; // skip malformed entries
+            }
+        }
+
         return distribution;
     }
 
