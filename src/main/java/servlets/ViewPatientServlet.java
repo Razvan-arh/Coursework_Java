@@ -40,7 +40,7 @@ public class ViewPatientServlet extends HttpServlet
             }
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/patientPage.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/patientPage.jsp");
             dispatch.forward(request, response);
 
         } catch (IOException e) 

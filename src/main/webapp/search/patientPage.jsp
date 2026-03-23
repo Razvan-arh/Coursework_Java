@@ -44,7 +44,7 @@
         }
       %>
     <br>
-    <form action="modifyPatient.html" method="get">
+    <form action="modify_data/modifyPatient.html" method="get">
         <input type="hidden" name="id" value="<%= patientId %>">
         <button type="submit">Modify Patient</button>
     </form>

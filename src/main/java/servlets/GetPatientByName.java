@@ -41,12 +41,12 @@ public class GetPatientByName extends HttpServlet
             } 
             else 
             {
-                List<String> searchResult = model.getPatientByName(firstNameString, lastNameString); //TODO change this part aproapriately
+                List<String> searchResult = model.getPatientByName(firstNameString, lastNameString); 
                 request.setAttribute("resultId", searchResult);
             }
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/patientNameResult.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/patientNameResult.jsp");
             dispatch.forward(request, response);
 
         } catch (IOException e) 

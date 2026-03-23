@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.io.Reader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,7 +13,12 @@ public class DataLoader
     
     public DataFrame getPatients()
     {   
-        return readFile("data/patients100.csv"); //TODO Add file name
+        // use modified csv if it exists
+        File f = new File("data/patientsModified.csv");
+        if(f.exists())
+            return readFile("data/patientsModified.csv");
+        else 
+            return readFile("data/patients1000.csv"); 
     }
 
 
@@ -44,9 +50,10 @@ public class DataLoader
 
         }
         
-        } catch(IOException e) // TODO Add error handling
+        } catch(IOException e) 
         {
-            e.printStackTrace();
+            // stops execution and gives clear error message
+            throw new RuntimeException("Failed to read file: " + fileName, e);
         }
 
         return data;

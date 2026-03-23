@@ -32,7 +32,7 @@ public class AgeGraphServlet extends HttpServlet
             request.setAttribute("ageGraphJson", ageGraphJson); 
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/ageGraph.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/graphs/ageGraph.jsp");
             dispatch.forward(request, response);
 
         }catch (IOException e)

@@ -1,0 +1,56 @@
+Web App Coursework:
+
+Prerequisites:
+Java 25 
+Maven 3.9+
+
+Project Structure:
+
+- data: Contains the csv data files
+- src/java: Contains the model and servlets; it also includes the main file  
+            acts as the entry point of the project.
+- src/webapp: All jsp and html file, organized based on what each roughly does
+- target and war-file both created by Maven
+
+Compile:
+
+Use to create War-file:
+mvn clean package
+
+Run:
+
+Use the command:
+mvn clean compile exec:exec
+
+It opens on the default port:
+http://localhost:8080
+
+Configuration:
+
+Port configuration can be changed by running:
+SERVER_PORT=your-port mvn clean compile exec:exec
+
+Usage:
+
+The web app is quite minimalistic; focused mostly on functionality rather than aesthetics.
+If there is no error when reading the files; when someone accesses the link they will be 
+greeted with a variety of option. Navigating them is relatively easy and there is always the option 
+at the bottom of the page to go back on the main page(Except for the graph pages). The options 
+available are pretty self explanatory but I have included a small description for some below.
+
+IMPORTANT
+To delete or modify a patient you must first navigate to their personal page. This is done
+either through the "Search with a keyword" or "Find Patient Id" both of whom have
+esentially the same function; although find patient id is a bit more finicky.
+
+"Find patient id" - Find a patients Id and personal page with their name
+"Search with keyword" - Same thing as the previous one just that it will comb
+                        through all the data. ie. It can give some pretty 
+                        irrelevant answers.
+"Find how many patients there are" - counts dead patients too.
+"Export all patients as JSON" - the json is going to appear the main directory of the project.
+
+When it comes to the data used I added all the patient csv but I use the 1000 one
+or if available the modified version made by the user. All of them could be 
+used by changing a line in the DataLoader. But personally I think that 1000
+looks the best for the graphs.

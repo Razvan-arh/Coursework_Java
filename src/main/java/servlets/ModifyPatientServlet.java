@@ -32,7 +32,7 @@ public class ModifyPatientServlet extends HttpServlet
 
             Model model = ModelFactory.getModel();
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/modifyPatientResponse.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/modify_data/modifyPatientResponse.jsp");
 
             if(patientID == null || patientID.trim().isEmpty()
                 || field == null || field.trim().isEmpty()

@@ -35,12 +35,12 @@ public class SearchByKeywordServlet extends HttpServlet
             } 
             else 
             {
-                List<String> searchResult = model.searchByKeyword(keyword); //TODO change this part aproapriately
+                List<String> searchResult = model.searchByKeyword(keyword); 
                 request.setAttribute("resultId", searchResult);
             }
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/patientNameResult.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/patientNameResult.jsp");
             dispatch.forward(request, response);
 
         } catch (IOException e) 

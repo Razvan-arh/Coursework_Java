@@ -22,6 +22,7 @@ public class Model
     String IDColumn = "ID";
     int numberOfColumns;
 
+    // constructor
     public Model()
     {
         // initiate the data frame from the data
@@ -49,23 +50,9 @@ public class Model
         return true;
     }
 
-    public List<String> searchByKeyword(String keyword)
-    {
-        List<String> patientsIdList = new ArrayList<>();
-
-        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
-        {   
-            for (String columnName : patients.getColumnNames())
-            {
-                if (patients.getValue(columnName, i).indexOf(keyword) != -1)
-                {
-                    patientsIdList.add(patients.getValue(IDColumn, i));
-                    break;
-                }
-            }
-        }
-        return patientsIdList;
-    }
+    //
+    // modification methods
+    //
 
     // adds new patient and creates new csv
     public boolean addPatient(HashMap<String, String> patientInfo)
@@ -74,10 +61,21 @@ public class Model
             return false;
 
         CSVWriter csvWriter = new CSVWriter();
-        String randomId = UUID.randomUUID().toString(); // id appears to be of uuid format
-        //TODO verify against previous UUID
-        patients.addValue(IDColumn, randomId); // add random ID generator
+        
+        // generates unique id
+        boolean stop;
+        String randomId = new String();
+        do{
+            stop = true;
+            randomId = UUID.randomUUID().toString(); // id appears to be of uuid format
 
+            for (int i = 0; i< patients.getRowCount(IDColumn); i++)
+                if(patients.getValue(IDColumn, i).compareTo(randomId) == 0)
+                    stop = false;
+        }while(!stop);
+        patients.addValue(IDColumn, randomId); // add randomly generated ID
+
+        // add the rest of the info to the new patient
         for (String field : patients.getColumnNames())
         {   
             if (field.compareTo(IDColumn) == 0)
@@ -148,6 +146,27 @@ public class Model
         }
     }
 
+    //
+    // search methods
+    //
+
+    public List<String> searchByKeyword(String keyword)
+    {
+        List<String> patientsIdList = new ArrayList<>();
+
+        for (int i = 0; i < patients.getRowCount(IDColumn); i++)
+        {   
+            for (String columnName : patients.getColumnNames())
+            {
+                if (patients.getValue(columnName, i).indexOf(keyword) != -1)
+                {
+                    patientsIdList.add(patients.getValue(IDColumn, i));
+                    break;
+                }
+            }
+        }
+        return patientsIdList;
+    }
 
     // returns patients ID based on name, returns multiple ID's if patients have the same name
     // if no First or Last columns exists returns null
@@ -286,6 +305,10 @@ public class Model
         return patientsGender;
     }
 
+    //
+    // graph methods
+    //
+
     public Map<String, Integer> getAgeDistribution()
     {
         Map <String, Integer> distribution = new HashMap<>();
@@ -364,7 +387,10 @@ public class Model
         return distribution;
     }
 
-    
+    //
+    // json writer
+    //
+
     public boolean writeJSON()
     {
         return JSONWriter.writeJSON(patients);

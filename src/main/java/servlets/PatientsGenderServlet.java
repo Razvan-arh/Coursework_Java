@@ -27,7 +27,7 @@ public class PatientsGenderServlet extends HttpServlet
             request.setAttribute("patientsGender", patientsGender);
             
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/patientsGender.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/patientsGender.jsp");
             dispatch.forward(request, response);
 
         }catch (IOException e)

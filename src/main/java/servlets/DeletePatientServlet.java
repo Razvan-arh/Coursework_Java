@@ -28,7 +28,7 @@ public class DeletePatientServlet extends HttpServlet
 
             Model model = ModelFactory.getModel();
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/deletePatientResponse.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/modify_data/deletePatientResponse.jsp");
 
             if(patientID == null || patientID.trim().isEmpty())
             {

@@ -3,7 +3,7 @@
 <html>
 <head>
   <jsp:include page="/meta.jsp"/>
-  <title>Number of patients</title>
+  <title>Number of patientsin a city</title>
 </head>
 <body>
   <div class = "main"> 

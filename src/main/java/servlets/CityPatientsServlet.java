@@ -41,7 +41,7 @@ public class CityPatientsServlet extends HttpServlet
             }
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/cityPatientsResponse.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/cityPatientsResponse.jsp");
             dispatch.forward(request, response);
 
         } catch (IOException e) 

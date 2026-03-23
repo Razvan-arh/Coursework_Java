@@ -8,7 +8,7 @@ public class ModelFactory
     {
         if (model == null)
         {
-            model = new Model(); // TODO add file optionality reading
+            model = new Model(); 
         }
         
         return model;

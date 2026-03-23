@@ -27,7 +27,7 @@ public class OldestPatientServlet extends HttpServlet
             request.setAttribute("oldestPatient", oldestPatient);
             
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/oldestPatient.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/oldestPatient.jsp");
             dispatch.forward(request, response);
 
         }catch (IOException e)

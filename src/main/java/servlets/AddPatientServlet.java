@@ -30,7 +30,7 @@ public class AddPatientServlet extends HttpServlet
             });
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/addPatientResponse.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/modify_data/addPatientResponse.jsp");
 
             if (model.addPatient(patientData))
             {

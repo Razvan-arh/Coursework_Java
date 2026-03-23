@@ -28,7 +28,7 @@ public class NumberOfPatientsServlet extends HttpServlet
             request.setAttribute("numberOfPatients", numberOfPatients);
             
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/numberOfPatients.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/search/numberOfPatients.jsp");
             dispatch.forward(request, response);
 
         }catch (IOException e)

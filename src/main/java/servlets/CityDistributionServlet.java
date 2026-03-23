@@ -31,7 +31,7 @@ public class CityDistributionServlet extends HttpServlet
             request.setAttribute("cityGraphJson", cityGraphJson); 
 
             ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/cityGraph.jsp");
+            RequestDispatcher dispatch = context.getRequestDispatcher("/graphs/cityGraph.jsp");
             dispatch.forward(request, response);
 
         }catch (IOException e)
